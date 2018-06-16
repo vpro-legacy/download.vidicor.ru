@@ -1,0 +1,228 @@
+
+<!--
+      Пример встраивания модуля RMXFViewer
+      ------------------------------------
+        Смотрите дальнейшие комментарии
+-->
+
+<HTML>
+
+<HEAD>
+
+<TITLE>Прямая трансляция системой Vidicor Ltd.</TITLE>
+
+<!--
+  В секцию HEAD веб-страницы включите JavaScript-файл
+  "rmxfrecv.js", находящийся в одном каталоге веб-сервера
+  с данной страницей.
+-->
+<SCRIPT language='JScript' src='rmxfrecv.js'></SCRIPT>
+
+<!--   В файле -CONFIG-.js задайте название страницы, адреса и имена потоков вещания -->
+<SCRIPT language='JScript' src='-CONFIG-.js'></SCRIPT>
+
+</HEAD>
+
+
+<BODY bgColor="#E0E0F0">
+
+<CENTER>
+
+<H1>
+<SCRIPT language='JavaScript'><!-- 
+document.write(Title)
+//--></SCRIPT>
+</H1>
+
+<!--  Таблица с просмотрщиком  -->
+
+<TABLE border=0 width=30  bgcolor="#eeeeee">
+
+<TR>
+<TD align="center" valign="middle" colspan=4>
+
+<!-- Заголовок над просмотрщиком -->
+<B>
+
+<SCRIPT language='JavaScript'><!-- 
+document.write(chanTypeName)
+//--></SCRIPT>&nbsp;
+<SPAN id='viewerTitle'></SPAN></B>
+</TD>
+</TR>
+
+<TR>
+<TD align="center" colspan=4  bgcolor="#dddddd">
+
+<!-- Место для окна просмотрщика -->
+
+<SPAN id='viewerPlace'></SPAN>
+
+</TD>
+</TR>
+
+<TR>
+<TD align="center">
+
+<!-- Кнопки выбора типа просмотрщика -->
+<TABLE border=0 width=10>
+
+<TR><TD align="left">
+<INPUT type=radio name="videoReceiver" CHECKED>Window
+</TD></TR>
+
+<TR><TD align="left">
+<INPUT type=radio name="videoReceiver"        >Viewer
+</TD></TR>
+
+</TABLE>
+
+</TD>
+
+<td>&nbsp;&nbsp;&nbsp;</td>
+
+<td align="right">
+
+<SCRIPT language='JavaScript'><!-- 
+if (refUrl.length > 1)
+{document.write("Выберите\n<SCRIPT language='JavaScript'><!--\n"
++"document.write(chanTypeName)\n"
++"//--></SCR"+"IPT>&nbsp;")}
+//--></SCRIPT>
+</td>
+
+
+<TD align="center">
+
+<!-- Таблица источников вещания -->
+<TABLE border=0 id='serversTable'><TBODY></TBODY></TABLE>
+
+</TD>
+</TR>
+
+</TABLE>
+
+<!--  Конец таблицы с просмотрщиком  -->
+
+<br>
+
+<!--  Таблица с пояснениями  -->
+
+<TABLE border=1 bgcolor="#ffffff">
+
+<TR>
+<TD align=center colspan=2>
+
+<font size=-2>
+  <b>Режим "Window"</b> &ndash; просмотр в окне, встроенном в веб-страницу.<br>
+  <b>Window-просмотрщик</b> устанавливается автоматически либо кликом на "<a href="http://download.vidicor.ru/activex_setup.exe"><b>Window</b></a>"
+<hr>
+  <b>Режим "Viewer"</b> &ndash; просмотр в отдельном окне.<br>
+  <b>Viewer-просмотрщик</b> устанавливается кликом на "<a href="http://download.vidicor.ru/watcher_setup.exe"><b>Viewer</b></a>"
+
+</font>
+
+</TD>
+</TR>
+
+<TR>
+<TD align=center colspan=2 bgcolor="#ff8080">
+
+Если есть проблемы с просмотром &mdash; нажмите <a href="http://download.vidicor.ru/VidicorView_help.htm" target='_blank'>здесь</a>
+
+</TD>
+</TR>
+
+</TABLE>
+
+<!--  Конец таблицы с пояснениями  -->
+
+<table>
+<tr>
+<td>
+<b>Прямая трансляция в Интернет ведется системой "Vidicor"</b>&nbsp;
+<td>
+<a href="http://vidicor.ru">
+<img src="http://vidicor.ru/images/vidicorWS.gif">
+</a>
+</td>
+</tr>
+</table>
+
+
+<!--  Управляющий скрипт  -->
+
+<SCRIPT language='JavaScript'><!--
+
+  /*
+    При выходе со странички надо уничтожить все модули просмотра
+    (в обработчике onUnload вызвать DestroyAllViewers())
+  */
+  window.onunload = DestroyAllViewers;
+
+  // Объект видеопросмотрщика
+  var rmxfViewer = null;
+
+  // Переключение приема на указанный источник
+  function playVideo(index)
+  {
+    if (videoReceiver[0].checked)
+    {
+      // Прием через ActiveX
+      if (rmxfViewer != null)
+        rmxfViewer.Destroy();
+      rmxfViewer = new RMXFViewer(refUrl[index], viewerPlace,
+                                  "Width="+width, "Height="+height,
+                                  "bufferMin="+bufferMin, "bufferMax="+bufferMax);
+    }
+    else
+    {
+      // Прием отдельным приложением
+      location.href = refUrl[index];
+    }
+    viewerTitle.innerHTML = refTxt[index];
+  }
+
+  // Вывод списка источников вещания
+  var cnt = refUrl.length;
+  for (var i = 0; i < cnt; i++)
+  {
+    var row = serversTable.insertRow();
+    var cellImg = row.insertCell();
+    var cellTxt = row.insertCell();
+    cellImg.width = '10%';
+    cellImg.aligh = 'left';
+    cellTxt.width = '90%';
+    cellTxt.aligh = 'left';
+
+    var imgHtml = "";
+    imgHtml += "<a onClick='playVideo(" + i + ");return false' href='#viewer' target='_self'>";
+
+    if (cnt == 1)
+	{imgHtml += "<img src='play.gif' border=0>";}
+    else
+	{imgHtml += "<img src='" + (i + 1) + ".gif' border=0>";}
+    
+    imgHtml += "</a>";
+    cellImg.innerHTML = imgHtml;
+
+    var txtHtml = "";
+    txtHtml += "<a onClick='playVideo(" + i + ");return false' href='#viewer' target='_self'>";
+    txtHtml += refTxt[i];
+    txtHtml += "</a>";
+    cellTxt.innerHTML = txtHtml;
+  }
+
+  // Включить источник по умолчанию
+    if (cnt > 1) {playVideo(defaultRef-1);}
+    else         {playVideo(0);}
+
+//-->
+</SCRIPT>
+
+<!--  Конец управляющего скрипта  -->
+
+
+</CENTER>
+</BODY>
+</HTML>

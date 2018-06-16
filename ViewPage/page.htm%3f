@@ -1,0 +1,699 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" >
+<!--  "http://www.w3.org/TR/html4/loose.dtd"
+
+      Пример встраивания модуля RMXFViewer
+      ------------------------------------
+-->
+
+<HTML>
+
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<TITLE>Прямая трансляция системой Vidicor Ltd.</TITLE>
+
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" /> 
+<LINK HREF="styles/style.css" REL="stylesheet" TYPE="text/css" />
+
+<!--
+  В секцию HEAD веб-страницы включите JavaScript-файл
+  "rmxfrecv.js", находящийся на веб-сервере в подпапке Files 
+  папки данной страницы.
+-->
+
+<!--  Управляющий скрипт removedsrc='Files/Control.js' src='Files/Control.js'-->
+<script language='JavaScript' type="text/javascript" id="idControlScript"></script>
+<SCRIPT language='JavaScript' type="text/javascript" src='http://download.vidicor.ru/ViewPage/Files/rmxfrecv.js'></SCRIPT>
+<SCRIPT language='JavaScript' type="text/javascript" id='pre_config_file'></SCRIPT>
+<SCRIPT language='JavaScript' type="text/javascript" id='user_config_file'></SCRIPT>
+<SCRIPT language='JavaScript' type="text/javascript" src='files/rmxfChannelTest.js'></SCRIPT>
+<SCRIPT language='JavaScript' type="text/javascript" src='files/rmxf_copyVideo.js'></SCRIPT>
+
+<!--
+  В файле -config_name-.def задайте имя файлов конфигурации, 
+  содержащих название страницы, адреса и имена серверов и каналов вещания видео и звука 
+-->
+<SCRIPT language='JavaScript' type="text/javascript" src='-config_name-.def'></SCRIPT>
+
+</HEAD>
+
+<BODY id="body" leftmargin="0" topmargin="18" marginwidth="0" marginheight="0" bgcolor="#ffffff" onLoad="onLoadDocument()" >
+
+<!--  Информация о поддержке JavaScript -->
+<noscript>
+ <table>
+  <tr>
+    <td><img src='Images/warning.png'/></td>
+    <td align='center'>
+        <font color='red'>Your browser does not support JavaScript! Please use Internet Explorer, add site to "Trusted" or enable JavaScript Support!/
+        Ваш Браузер не поддерживает JavaScript! Пожалуйста просматривайте данную страницу с помощью Internet Explorer, добавте сайт в "Доверенные" или включите поддержку JavaScript!
+	</font>
+    </td>
+   </tr>
+ </table>
+</noscript>
+
+
+<!-- BEGIN IE INFO-->
+<script language="JavaScript" src="Files/cookies.js" type="text/javascript"></script>
+
+<!--
+<table ALIGN=CENTER id="ieinfo" style="position:absolute;top:0;background-color:Yellow; width:50%">
+ <tr>
+  <td valign='middle' align='right'><img src="images/ie.png" alt='IE' width="14" height="15" /></td>
+  <td valign='middle' align='center'><font size='1'>Рекомендуется смотреть данную страницу с помощью <b>MS Internet Explorer</b> или совместимого браузера&nbsp;&nbsp;<a href='?' onclick='HideIeInfo();return false;'>x Закрыть</a></font></td>
+  <td valign='middle' align='left'><img src="images/ie.png" alt='IE' width="14" height="15" /></td>
+ </tr>
+</table>
+-->
+
+<script language="JavaScript" type="text/javascript">
+
+ function HideIeInfo()
+ {
+  var el = document.getElementById('ieinfo');
+  if (el) el.style.display = 'none';
+  setCookie("ieinfo", 1);
+ }
+ 
+ if (getCookie("ieinfo")==1) HideIeInfo();
+</script>
+
+<!-- END IE INFO-->
+
+<CENTER>
+
+<!-- Название страницы (группы каналов) -->
+<table bgcolor='#eeeeee' align='center' border='2' width='95%'>
+<tr>
+<td align='center' valign='middle'>
+<p id="idTitlePlaceholderH1"></p>
+</td>
+</tr>
+</table>
+
+<SCRIPT language='JavaScript' type="text/javascript"><!--
+//doc ument.write('<table bgcolor=#eeeeee align=center border=5><tr><td align=center valign=middle><h1>' + Title + '</h1></td></tr></table>');
+//-->
+</SCRIPT>
+
+<!--  Название текущего канала -->
+<center>
+<table border=1 bgcolor=white width=95%>
+  <tr>
+    <td align=center>
+      <a href="#channels">
+	<SPAN id='viewerTitle'></SPAN>
+      </a>
+    </td>
+  </tr>
+</table>
+</center>
+
+<!--  Верхнее добавление -->
+<small><small>Для автоустановки элемента просмотра <b><u>в MS IE</u></b> отвечайте утвердительно на все запросы браузера <b><u>или</u></b> инсталлируйте элемент просмотра самостоятельно <a href="http://download.vidicor.ru/activex_setup.exe"><b><u>ЗДЕСЬ</u></b></a></small></small>
+
+<table>
+<tr>
+<td>
+<small><small>Для просмотра <b><u>не в MS IE</u></b> используйте</small></small>
+</td>
+<td>
+<button title="Просмотр самостоятельным приложением в своем окне -- если используется не MS Internet Explorer" id=ButtonViewer width=80 height=25 onClick='playVideo((document.getElementById("URLBaseS")).value, currentRef, "Viewer");'>Media Watcher</button>
+</td>
+<td>
+<small><small>&nbsp;&nbsp;&nbsp;Перед использованием инсталлируйте его <a href="http://download.vidicor.ru/watcher_setup.exe"><b><u>ЗДЕСЬ</u></b></a>
+</td>
+</tr>
+</table>
+
+</small>
+
+<!-- Если Ваш компьютер не поддерживает автоматический просмотр трансляции, 
+Вы можете воспользуйтесь дополнительными способами приема: 
+<br>
+1-й способ  просмотра - "ActiveX компонент", 2-й способ просмотра - "Watcher"
+<br> (см. инструкцию ниже). -->
+
+<!--  Просмотрщик + выбор доп. звука -->
+<!-- Рамка с просмотрщиком с верхней надписью -->
+
+<!-- Управляющий скрипт -->
+<!-- l anguage='JavaScript' type="text/javascript" src='Files/Control.js'-->
+
+<TABLE border=0 cellspacing=0 cellpadding=0 width=320 id="allWindow" bgcolor=silver style='display:inline' >
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+  <tr>
+    <td id='Fra me_tl'><img src="http://download.vidicor.ru/ViewPage/Images/frame_t_l.png"/></td>
+    <td id='Frame_t'></td>
+    <td id='Fra me_tr'><img src="http://download.vidicor.ru/ViewPage/Images/frame_t_r.png"/></td>
+  </tr>
+
+<!-- ---------------------- Выбор репликатора, протокола, порта и длины буфера -------------------- -->
+
+  <TR align=center>
+    <td id='Frame_l'></td>
+
+    <td id="controlCellB" align=center>
+      <center>
+
+      <table width=100%; align=center border=0>
+        <tr>
+	<td>
+	  <a Title=' Понравилось видео? Поставьте его на свой сайт!' href='#' onclick="showCopyPopup_Inc();return false;">
+	    <img src="images/include_site.png" width=32 onmouseenter="this.src='images/include_site2.png'" onmouseleave="this.src='images/include_site.png'" style="text-decoration:none;color:silver" border='0'/>
+	  </a>
+	</td>
+
+	<td>
+	  <a Title=' Понравилось видео? Пошлите ссылку на него друзьям или поставьте ссылку на свём сайте!' href='#' onclick="showCopyPopup_Link();return false;">
+	    <img src="images/Mail_site.png" width=24 onmouseenter="this.src='images/sendMail_site.png'" onmouseleave="this.src='images/Mail_site.png'" style="text-decoration:none;color:silver" border='0'/>
+	  </a>
+	</td>
+
+    <!-- Выбор источника потока -->
+
+	<TD align="right" valign="middle" id="controlCell1"
+	    Title = 'Трансляция ведется одновременно через сеть ретрансляторов. Выберите тот из ретрансляторов, который обеспечивает для вашей точки просмотра наименьшие потери данных и наименьшую оплату трафика'>
+
+	  <SCRIPT language='JavaScript' type="text/javascript">
+	    if (URLBase.length > 1)
+	    {	document.write("<small><small>" + promptURLBase + "</small></small>"); }
+	  </SCRIPT>
+	</td>
+
+	<td align="left" valign="middle"
+	    Title = 'Трансляция ведется одновременно через сеть ретрансляторов. Выберите тот из ретрансляторов, который обеспечивает для вашей точки просмотра наименьшие потери данных и наименьшую оплату трафика'>
+
+	  <SCRIPT language='JavaScript' type="text/javascript">
+
+	    if (URLBase.length > 1)
+	    {
+	        document.write(" <SELECT id='URLBaseS' name='URLBaseS' size=1 onChange='playVideo((document.getElementById(\"URLBaseS\")).value, currentRef);'></center>");
+	
+	      var cnt = URLBase.length;
+	      var selected = "";
+	      for (var i = 0; i < cnt; i++)
+	      {
+	        if (i == defaultURLBase-1)
+	          selected = "Selected";
+	        else
+	          selected = "";
+	
+	        document.write("<OPTION " + selected + " value='"+i+"'>" + URLBaseName[i]);
+	      }
+
+	      document.write("</SELECT>\n");
+	    }
+	    else
+	    if (URLBase.length == 1)
+	    {
+	      document.write("<input type=hidden name='URLBaseS' value='" + 0 + "'>");
+	    }
+	
+	  </SCRIPT>
+
+	</TD>
+
+	<td>&nbsp</td>
+
+
+<!--	<TD align="center" valign="middle" id="controlCell3" 
+	Title="Если видеопоток через ваше интернет-соединение не проходит либо качество связи невысокое -- попробуйте изменить протокол приёма.
+
+	Порядок убывания предпочтительности протоколов: VDP -- VCP -- TCP.
+
+	Если VCP или TCP работает, а VDP не работает -- попросите администратора сети открыть прохождение пакетов UDP по порту 80.">
+	    Протокол:<br>
+	    <SELECT name='recvProtocol' id='recvProtocol' size=1 onChange='playVideo((document.getElementById("URLBaseS")).value, currentRef);'>
+		       <OPTION SELECTED	value='DEFAULT'>Автовыбор		</OPTION>
+		       <OPTION		value='VDP'>    VDP (Лучшее 1)		</OPTION>
+		       <OPTION 		value='VCP'>    VCP (Лучшее 2)		</OPTION>
+		       <OPTION		value='TCP'>    TCP (Худшее..)		</OPTION>
+		       <OPTION		value='UDPU'>   UDP unicast		</OPTION>
+		       <OPTION		value='UDPM'>   UDP multicast		</OPTION>
+	    </SELECT>
+        </td>
+
+	<td>&nbsp</td>
+
+        <td align="center" valign="middle" id="controlCell4"
+            Title="Выберите порт для получения медиапотока из числа открытых -- спросите своего сетевого администратора" style="display:none"> 
+	    Порт:<br>
+	    <SELECT name='recvPort' size=1 onChange='playVideo((document.getElementById("URLBaseS")).value, currentRef);'>
+	      <OPTION SELECTED value='DEFAULT'>По умолчанию
+	      <OPTION value='80'>     80
+<!--    <OPTION value='516'>    516 (Videotex) -- >
+      <OPTION value='537'>    537 (NMSP) +++
+      <OPTION value='544'>    554 (RTSP)
+      <OPTION value='1185'>  1185 (Flash)
+<!--      <OPTION value='583'>    583 (Philips VC)
+      <OPTION value='1257'>  1257 (ShockWave)
+      <OPTION value='1347'>  1347 (BBN-MMC)
+      <OPTION value='1347'>  1566 (CorelVideo)
+      <OPTION value='1718'>  1718 (Avaya)
+      <OPTION value='1719'>  1719 (Avaya)
+      <OPTION value='1720'>  1720 (Avaya)      -- >
+      <OPTION value='1755'>  1755 (WinMedia)
+<!--      <OPTION value='2232'>  2232 (IVS Video)
+      <OPTION value='2435'>  2435 (Avaya)
+      <OPTION value='2436'>  2436 (Avaya)
+      <OPTION value='2437'>  2437 (Avaya)
+      <OPTION value='2438'>  2438 (Avaya)
+      <OPTION value='2439'>  2439 (Avaya)
+      <OPTION value='2804'>  2804 (MarchNwrks) -- >
+      <OPTION value='2979'>  2979 (H.263)
+<!--      <OPTION value='3058'>  3058 (VideoBeans) -- >
+      <OPTION value='3230'>  3230 (Polycom)
+<!--      <OPTION value='3231'>  3231 (Polycom)
+      <OPTION value='3232'>  3232 (Polycom)
+      <OPTION value='3233'>  3233 (Polycom)
+      <OPTION value='3234'>  3234 (Polycom)
+      <OPTION value='3235'>  3235 (Polycom) -- >
+      <OPTION value='3687'>  3235 (Adobe Flash)
+<!--      <OPTION value='3791'>  3791 (TV NtwrkVideo) -- >
+      <OPTION value='4307'>  4307 (Visicron)
+<!--      <OPTION value='4444'>  4444 (NV Video)      
+      <OPTION value='5004'>  5004 (RFC RTP)
+      <OPTION value='5689'>  5689 (QM Video)
+      <OPTION value='5714'>  5714 (ProShareVideo)
+      <OPTION value='7648'>  7648 (Cucme Live)
+      <OPTION value='7649'>  7649 (Cucme Live)
+      <OPTION value='7650'>  7650 (Cucme Live)
+      <OPTION value='7651'>  7651 (Cucme Live) -- >
+      <OPTION value='9000'>  9000 (RMXF)
+<!--      <OPTION value='15000'>15000 (Hydap)
+      <OPTION value='18881'>18881 (Infotos) -- >
+    </SELECT>
+        </td>
+-->
+        <TD align="right" valign="middle" id="controlCell5"
+            Title = 'Длина буфера больше -- больше устойчивость к потерям в канале, но больше и задержка приема'>
+	    <small><small>Буфер<br>(задержка):</small></small>
+	</td>
+
+	<td align="center" valign="middle"
+            Title = 'Длина буфера больше -- больше устойчивость к потерям в канале, но больше и задержка приема'>
+	    <INPUT type='text' name='recvbufferMid' id='recvbufferMid' size=3 onChange='playVideo((document.getElementById("URLBaseS")).value, currentRef)'>
+	</td>
+
+	<td align="left" valign="middle"
+            Title = 'Длина буфера больше -- больше устойчивость к потерям в канале, но больше и задержка приема'>
+	<small><small>мс</small></small>
+        </td>
+
+	<td>&nbsp</td>
+
+	<td align='center' Title="Включить/выключить запись. Файлы записи размещаются в указанной ниже подпапке папки 'c:\Vidicor_Record\'">
+	  <input type='button' style='background-color:"#aaffaa"' id='idRecord' name='StartRecord' onClick='startRecord();playVideo((document.getElementById("URLBaseS")).value, currentRef);' value='Start Rec'>
+	  <INPUT type='text'   style='background-color:"#cccccc"' name='pathForRecord' id='pathForRecord' size=2 value='Rec1 ' Title='Имя подпапки для сохранения видеофайлов'>
+	</td>
+
+	<td>
+	  <table>
+	    <tr><td>
+	      <a href="http://download.vidicor.ru/VidicorView_help.htm" title='Помощь "Как смотреть"' target="_blank">
+		<img src="images/help.png"  onmouseenter="this.src='images/help2.png'" onmouseleave="this.src='images/help.png'" style="text-decoration:none;color:silver" border='0' width=24 />
+		</a>
+		<a href="http://download.vidicor.ru/help/interface.html" title="Помощь по интерфейсу" target="_blank">
+		<img src="images/help2.png"  onmouseenter="this.src='images/help.png'" onmouseleave="this.src='images/help2.png'" style="text-decoration:none;color:silver" border='0' width=24 />
+	      </a>
+	    </td></tr>
+	  </table>
+	</td>
+
+      </tr>
+
+      </table>
+      </center>
+    </TD>
+    <td id='Frame_tr1'></td>
+  </TR>
+
+<!-- -------------------- / Выбор репликатора, протокола, порта и длины буфера -------------------- -->
+
+
+<!-- --------------------------------- Видеоокно просмотрщика ------------------------------------- -->
+
+  <TR>
+
+    <td id='Frame_l'></td>
+
+    <TD align="center" valign="middle" id="videoCell">
+
+    <!-- Место для окон просмотрщиков -->
+      <TABLE border=0 id='viewersTable'>
+        <TBODY></TBODY>
+      </TABLE>
+
+    </TD>
+
+    <td id='Frame_r'></td>
+
+  </TR>
+
+<!-- --------------------------------- / Видеоокно просмотрщика ------------------------------------- -->
+
+
+<!--      < SCRIPT language='JavaScript' type="text/javascript">
+	if (refLang.length > 1)
+	{
+	  document.write("
+-->
+  <TR>
+
+    <td id='Frame_l'></td>
+
+    <TD>
+
+<!-- -------------------- Проигрыватель дополнительного звука и выбор языка/режима ------------------ -->
+
+      <TABLE  border=0 WIDTH=100% cellspacing=0 cellpadding=0>
+        <TR>
+	  <TD align=\'center\' valign=\'middle\' height=27 id=\'audioCell\'>
+	    <SPAN id="viewerPlaceSnd"></SPAN>
+	  </TD>
+	</TR>
+
+	<tr>
+	  <td align="center" valign="middle">
+
+	    <table border=0 width=100%>
+
+	      <TR id="controlCell2" Title = "Выберите выдаваемый звук (оригинальный или/и перевод) и режим прослушивания (или только перевод/оригинал, или оригинал в одном канале, перевод -- в другом, или наложение оригинала и перевода)">
+		<TD align="right" valign="middle">
+		  <center>
+		  <SCRIPT language='JavaScript' type="text/javascript">
+		    if (refLang.length > 1)
+		    {
+		      document.write("<small><small>Выберите язык для звука:");
+		    }
+		  </SCRIPT>
+		  </center>
+		</td>
+
+		<TD align="left" valign="middle" id=LangSelectorCell>
+		</TD>
+
+		<TD align="right" valign="middle">
+		  <center>
+		  <SCRIPT language='JavaScript' type="text/javascript">
+		    if (refLang.length > 1)
+		    {
+		      document.write("<small><small>и режим прослушивания:</small></small>");
+		    }
+		  </SCRIPT>
+		  </center>
+		</td>
+
+	        <TD align="left" id=SplitSelectorCell></TD>
+
+		  <SCRIPT language='JavaScript' type="text/javascript">
+
+		    if (refLang.length > 1)
+		      {
+			var selectTag = "<SELECT id=LanguageSelect size=1 onChange='ChangeLanguage();'>";
+			for (var i = 0; i < refLang.length; i++)
+			  {
+			    var selected = (i == (defaultLang - 1)) ? "Selected" : "";
+			    if (selected != "") is=i;
+			    selectTag += "<OPTION " + selected + " value='" + refLang[i] + "'>" + refLang[i];
+			  }
+			selectTag += "</SELECT>\n";
+
+			var el = document.getElementById('LangSelectorCell');
+			el.innerHTML = selectTag;
+
+			{
+			  selectTag =  "<SELECT id=SplitAudio size=1 onChange='ChangeLanguage();'>";
+			  selectTag += "<OPTION value='mute' selected> Только выбранный язык";
+			  selectTag += "<OPTION value='split'>         Выбранный и оригинальный";
+			  selectTag += "<OPTION value='mix'>           Наложение";
+			  selectTag += "</SELECT>\n";
+			  var el = document.getElementById('SplitSelectorCell');
+			  el.innerHTML = selectTag;
+			}
+
+		      }
+
+		  </SCRIPT>
+
+	        </TD>
+	      </TR>
+	    </table>
+	  </TD>
+	</TR>
+      </table>
+
+<!-- ------------------ / Проигрыватель дополнительного звука и выбор языка/режима ------------------ -->
+    </TD>
+
+    <td id='Frame_r'></td>
+
+  </TR>
+
+  <tr>
+    <td id='Frame_bl'></td>
+    <td id='Frame_b'></td>
+    <td id='Frame_br'></td>
+  </tr>
+  </tr>
+
+</table>
+
+
+<br />
+<br />
+
+<!--  Выбор канала -->
+<!-- ---------------------------- Вывод/выбор каналов вещания ----------------------------- -->
+
+	    <!-- Таблица каналов вещания -->
+	    <TABLE border=0 width=77% id='serversTable'>
+	      <TBODY></TBODY>
+	    </TABLE>
+
+<!-- --------------------------- / Вывод/выбор каналов вещания ---------------------------- -->
+
+<br />
+
+<!-- Текстовый чат -->
+
+<script language=JavaScript type="text/javascript" src='chat/jsloader.js'></script>
+
+<!-- <table  id='whitebox' cellpadding="0" cellspacing="0">
+
+  <tr>
+    <td id='whitebox_tl'></td>
+    <td id='whitebox_t'></td>
+    <td id='whitebox_tr'></td>
+  </tr>
+
+  <tr>
+    <td id='whitebox_l'></td>
+    <td id='whitebox_m'>
+-->
+      <TABLE border=5 width=30% style='display:inline' >
+
+	<TR>
+	  <TD bgcolor=#CFCFCF>
+	    <TABLE border=0 width=100%>
+	      <TR>
+		<TD><small>Высказаться публично</TD>
+		<TD align=right valign=middle><small><A href="mailto:info@vidicor.ru" id="idCommentMailAddressA">Отправить комментарий эл. почтой</A></TD>
+		<TD align=right valign=middle><small><a href='chat/admin.php' title='Администрировать'  style="color:CFCFCF"><img src='chat/img/wrench.png' style="height:16;width:16;" border="0"/></a></TD>
+	      </TR>
+	    </TABLE>
+	  </TD>
+	</TR>
+
+	<TR>
+	  <TD bgcolor=#eFeFeF class="whitebox_b">
+	    <form action="sendmessage.php" onsubmit="SendSubmit()">
+	      <TABLE border=0 align='center'>
+	        <TR><TD align='right'><small><small>Имя: </TD><TD align=left><input name='fio' id='fio' size=20></small></small></TD></TR>
+	        <TR><TD align='right'><small><small>Город/организация: </TD><TD align=left><input name='city' id='city' size=40></small></small></TD></TR>
+	        <TR><TD align='right'><small><small>Сообщение: </TD><TD align=left><input name='message' id='message' size=60></small></small></TD></TR>
+	        <TR><TD align='right'><small><small>Введите число <img id='codeimage' src="chat/image.php?1">: </TD>
+		    <TD align='left'><input name='message' id='testcode' name='testcode' size=8></small></small>
+		    <small><input type="button" value="Отправить" onclick="SendSubmit()"></small></small></TD></TR>
+	      </TABLE>
+	    </form>
+	  </TD>
+	</TR>
+
+	<TR>
+	  <TD bgcolor=#dFdFdF>
+	    <div name='box' id='box' STYLE="overflow:scroll; height:100px; width:100%; text-align:left">
+	      <center><img src="chat/img/history2.png"> Загрузка ...</center>
+	    </div>
+	  </TD>
+	</TR>
+
+      </TABLE>
+<!--
+    </td>
+
+    <td id='whitebox_r'></td>
+  </tr>
+
+  <tr>
+    <td id='whitebox_bl'></td><td id='whitebox_b'></td><td id='whitebox_br'></td>
+  </tr>
+</table>
+-->
+
+<script>
+  var timestamp = 0;
+  var modified = 0;
+  var updateInterval = 3000;
+
+
+  function mEval(x)
+  {
+   if (x) eval(x);
+  }
+
+
+  function mSended(tag, param, x)
+  {
+   codeimage = document.getElementById('codeimage');
+   codeimage.src = "chat/image.php?"+Math.random() ;
+   alert(x);
+   
+  }
+
+  function RemoveLoadedTag ( jstag )
+  {
+   setTimeout("Update();", updateInterval);  
+  }
+  
+  function Update()
+  {
+   var url ="chat/getmessage.php?timestamp="+timestamp+'&mod='+modified;
+   LoadJS_Start(url);
+  }
+  
+
+  function addmesssage(mtime, mfio, mcity, message, host)
+  {
+//alert(mtime);
+   var el = document.getElementById('box');
+   el.innerHTML = ("<small><small><font color=red>" + mtime + "</font> | <b><u title=" + host + ">" + unescape(mfio) + ", " + unescape(mcity) + ":</u></b> " + unescape(message) + "</small></small><br>") +el.innerHTML + "&nbsp";
+//   el.scrollIntoView(false);
+  }
+
+
+  function change_timestamp(x, modif)
+  {
+   if (timestamp==0)
+	document.getElementById('box').innerHTML = "";
+   	
+   timestamp = x;
+   modified = modif;
+  }
+
+  
+  function OnLoad()
+  {
+   Update();   
+  }
+  
+
+  function SendSubmit()
+  {
+     mfio = document.getElementById('fio');
+     mmessage = document.getElementById('message');
+     testcode = document.getElementById('testcode');
+     city = document.getElementById('city');
+
+
+    var url = "chat/sendmessage.php?fio="+escape(mfio.value)+"&message="+escape(mmessage.value)+'&code='+testcode.value+'&city='+city.value;
+    LoadText_Start(url, mSended, "text-php");
+     
+    return false;
+  }
+  
+  setInterval("Update();", updateInterval);  
+  
+</script>
+
+<br />
+
+<!--  Логотип разработчика  -->
+<!-- Выдача логотипа внизу -->
+
+<table bgcolor=white style='display:inline' >
+<tr>
+<td align=center valign=middle>
+<small><small>
+<b>Прямая трансляция в Интернет 
+<br>ведется системой <a href="http://vidicor.ru">"VidicoR"</a></b>
+</small></small>
+<td>
+<a href="http://vidicor.ru">
+<img src="http://vidicor.ru/images/vidicorWS.gif">
+</a>
+</td>
+
+<td valign="middle">
+<a href="http://makstv.vidicor.com/video/trailer1.wmv">1</a><br>
+<a href="http://makstv.vidicor.com/video/trailer2.wmv">2</a><br>
+</td>
+<td valign="middle">
+<a href="http://makstv.vidicor.com/video/trailer1.avi">1</a><br>
+<a href="http://makstv.vidicor.com/video/trailer2.avi">2</a>
+</td>
+
+</tr>
+</table>
+
+
+&nbsp;
+
+<!--  Нижнее добавление -->
+<table border=1 bgcolor="#ffffcc" style='display:inline' height=65>
+<tr>
+<td>
+<small><small>Просим <b><u>незамедлительно</u></b> информировать письмом на <a href="mailto:info@vidicor.ru">info@vidicor.ru</a>, 
+<br>если просмотр данного материала нарушает чьи-либо права или интересы</small></small>
+</td>
+</tr>
+</table>
+
+&nbsp;
+
+<!--  Счетчик -->
+<!--  -->
+
+
+<table style='display:inline' >
+<tr>
+<td>
+<!-- MyCounter v.2.0 -->
+<script type="text/javascript"><!--
+my_id = 3303;
+my_width = 88;
+my_height = 61;
+my_alt = "MyCounter - Ваш счётчик";
+//--></script>
+<script type="text/javascript"
+  removedsrc="http://scripts.mycounter.com.ua/counter2.0.js" id="idCounterScript">
+</script>
+<div id="idCounterPlaceholderDiv"></div>
+<noscript>
+<a target="_blank" href="http://mycounter.com.ua/"><img
+removedsrc="http://get.mycounter.com.ua/counter.php?id=3303"
+id="idCounterImage"
+title="MyCounter - Ваш счётчик"
+alt="MyCounter - Ваш счётчик"
+width="88" height="61" border="0" /></a></noscript>
+<!--/ MyCounter -->
+</td>
+</tr>
+</table>
+
+</CENTER>
+
+</BODY>
+</HTML>

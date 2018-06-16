@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>НПЦ "Видикор": Установка службы трансляции</title>
+
+ <link type="text/css" href="http://JQuery.vidicor.ru/css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="stylesheet" />	
+  <script type="text/javascript" src="http://JQuery.vidicor.ru/js/jquery.js"></script>
+  <script type="text/javascript" src="http://JQuery.vidicor.ru/js/jquery-ui.min.js"></script>
+
+
+ 
+
+<SCRIPT type=text/javascript>
+
+	$(function() {
+		$("button, input:submit").button();
+	});
+        function determineYear()  //определение текущего года
+        {
+          var dYear = new Date();
+          var currentYear = dYear.getFullYear();
+          document.getElementById('currYear').innerHTML = currentYear;
+        }
+
+</SCRIPT>
+
+</head>
+
+<body onload="determineYear();">
+<center>
+<a href="http://vidicor.ru" title='Научно-производственный центр &laquo;Видикор&raquo;'><img src="http://vidicor.ru/Logotypes/logo_vidicor_Russia.png" width="215px" height="114px" border=0 /></a>
+<hr />
+
+<div>
+<h1>Установка программной версии видеосервера &laquo;Vidicor&raquo; с USB токеном</h1>
+
+<table border=0 title="Требования к оборудованию, ПО и сетевому подключению">
+<tr>
+<td align=left>
+<DIV class=ui-widget>
+ <DIV style="PADDING-BOTTOM: 0px; MARGIN-TOP: 20px; PADDING-LEFT: 0.7em; PADDING-RIGHT: 	0.7em; PADDING-TOP: 0px" class="ui-state-highlight ui-corner-all">
+<P><SPAN style="FLOAT: left; MARGIN-RIGHT: 0.3em" class="ui-icon ui-icon-info"></SPAN>
+<font size=+2><center><b>&nbsp;Требования к оборудованию, ПО и сетевому подключению&nbsp;</b></center></font>
+<hr />
+<ul>
+<li>Компьютер с процессором класса Core2Duo или выше</li>
+<li>Объем оперативной памяти 1 Гб или больше</li>
+<li>Операционная система Microsoft Windows-2000, -XP, -Vista или -7</li>
+<li>Вход подключения видеокамеры с установленными драйверами</li>
+<li>Встроенные или выносные динамики и микрофон</li>
+<li><font color="red">Качественная</font> цифровая видеокамера</li>
+<li>Соединение с Интернетом (в идеале &mdash; широкополосное)</li>
+<li>Выделенный (внешний) IP адрес</li>
+(Система определила IP адрес этого компьютера как
+<a href="#" onclick="top.location.href='http://ip-address-lookup-v4.com/lookup.php?ip=54.165.59.7'">
+<button title="Удостоверьтесь, что это выделенный внешний адрес"><font color="blue" size=+1><b>54.165.59.7</b></font></button></a>)
+<li>На Firewall'е должны быть открыты порты 80, 9000 по TCP и UDP на передачу и приём</li>
+</ul>
+
+
+ </P>
+ </DIV>
+</DIV>
+
+
+</td>
+</tr>
+</table>
+
+<br />
+Для использования системы необходимо установить на компьютер программный компонент <font color=red><b>&laquo;Vidicor-S&raquo;</b></font>; для этого необходимо обладать правами администратора
+<br /><br />
+Если все требования выполнены, то <a href="#" onclick="top.location.href='Server_side/index.php'"><button><font color="red" size=+1><b>НАЖМИТЕ ЗДЕСЬ</b></font></button></a> для установки компонента видеосвязи
+<br /><br />
+При установке, возможно, потребуется ввести <a href="#" onclick="top.location.href='mailto:support@vidicor.ru'"><button title="Отправить запрос администратору для получения эккаунта на хостере">логин и пароль</button></a>, которые получены при покупке ПО
+<br /><br />
+Система предложит сохранить или запустить файл установки &mdash; согласитесь и запустите его; далее следуйте подсказкам мастера:<br /><br />
+<img src="Img/load.png"  height=200pt />
+<img src="Img/load2.png" height=200pt />
+<img src="Img/load3.png" height=200pt />
+<img src="Img/load4.png" height=200pt />
+<img src="Img/load5.png" height=200pt />
+</div>
+
+Если у вас возникнут вопросы &mdash; можете задать их по email: <a href="mailto:support@vidicor.ru?suject=Vidicor Stream Video Hoster">support@vidicor.ru</a> или по телефону +7 (343) 375-8190
+
+<hr />
+<font size=-2>Система интернет-видеосвязи "Vidicor Video System" <nobr>&copy; 2005-<span id="currYear"></span> <a href="http://vidicor.ru/">НПЦ "Видикор"</a></nobr></font>
+
+</center>
+</body>
+
+</html>

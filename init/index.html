@@ -1,0 +1,16 @@
+#!/bin/sh
+
+IP=192.168.3.1
+NETMASK=255.255.255.0
+MAC=00:11:44:22:55:11
+PID=1042
+
+# Замените приведенные для примера параметры реальными, указанными в параметрах трансляции: 
+
+dvbnet $PID > /dev/null
+ifconfig dvb0_0 $IP netmask $NETMASK hw ether $MAC arp mtu 1500
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Концы строк в этом файле должны задаваться ТОЛЬКО кодами <0Ah>, а не парами <0Dh><0Ah>, как в MS Windows!
+
+# Скопируйте этот файл в ресивер в папку ftp://<user>:<password>@<IP-адрес ресивера>/var/etc/

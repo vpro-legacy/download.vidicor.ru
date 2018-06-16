@@ -1,0 +1,61 @@
+﻿// Используется при вызове из архива
+// URL или файл параметров по умолчанию
+
+var base=document.location.search.substr(1);
+
+if (base != '') {
+//  ExecuteConfig(base);
+  var el = document.getElementById('user_config_file');
+  el.src = base;
+} else {
+//  ExecuteConfig('def/-config-.def');
+  var el = document.getElementById('user_config_file');
+  el.src ='def/-config-.def';
+}
+
+
+function doFillDocument() {
+
+// ----------------- Заголовок страницы просмотра ------------
+ var el = document.getElementById('idControlScript');
+ el.src = 'Files/Control.js';
+
+ var el = document.getElementById('idTitlePlaceholderH1');
+ if (el) el.innerHTML = Title;
+//  ExecuteConfig('Files/Control.js');
+
+
+// -------------------- Счетчик посещений --------------------
+  if((document.getElementById('idCounterScript') != undefined) || (document.getElementById('idCounterScript') != null)) {
+    document.getElementById('idCounterImage').src = 'http://get.mycounter.com.ua/counter.php?id=3303';
+  }// else {
+//    document.getElementById('idCounterScript').src = 'Files/Counter.js';
+//    document.getElementById('idCounterScriptPlaceholderDiv').innerHTML = '111<script type="text/javascript" src="http://scripts.mycounter.com.ua/counter2.0.js">< /script>';
+//  }
+}
+
+
+function doRedrawDocument() 
+{
+}
+
+var bConfigLoaded = false;
+var bDocumentLoaded = false;
+
+function onLoadConfig() {
+  document.bConfigLoaded = true;
+  doRedrawDocument();
+  if(document.bDocumentLoaded) 
+  {
+    doFillDocument();
+  }
+}
+
+function onLoadDocument() {
+  document.bDocumentLoaded = true;
+  doRedrawDocument();
+  if(document.bConfigLoaded) 
+  {
+    doFillDocument();
+  }
+}

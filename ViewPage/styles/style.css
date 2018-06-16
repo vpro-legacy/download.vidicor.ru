@@ -1,0 +1,107 @@
+ 
+a:link {text-decoration:none;}  
+ 
+a:visited {text-decoration:none;}  
+ 
+a:active {text-decoration:none;}  
+
+.channelbutton:hover{ text-transform:capitalize; text-decoration:blink; }
+
+
+body 
+{
+	margin-top: 1em;
+}
+
+#Frame
+{
+	margin: 0 21px 0px 21px;
+	width: auto;
+}
+ 
+#Frame_t 
+{
+	height: 13px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_t.png) 0 0 repeat-x;
+}
+
+#Frame_tl 
+{
+	height: 13px;
+	width: 13px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_t_l.png) 0 0 no-repeat;
+}
+
+#Frame_tr
+{
+	height: 13px;
+	width: 29px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_t_r.png) 0 0 no-repeat;
+}
+
+#Frame_tr1
+{
+	height: 50px;
+	width: 29px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/Frame_Shad_t_r.jpg) 0 0 no-repeat;
+}
+
+#Frame_l
+{
+	width: 13px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_l.png) 0 0% repeat-y;
+}
+
+#Frame_m 
+{
+	top: -1;
+	background-color:#ffffff;
+}
+
+#Frame_r {
+	width: 29px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_Shad_r.jpg) 0 0 repeat-y;
+}
+
+#Frame_b 
+{
+	height: 29px;
+//	margin-top: -5px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_Shad_b.jpg) 0 0 repeat-x;
+}
+
+#Frame_bl 
+{
+	height: 20px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_b_l.png) 0 0 no-repeat;
+}
+
+#Frame_br
+{
+	height: 29px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/frame_Shad_br1.png) 0 0 no-repeat;
+}
+
+#Shadow_r
+{
+	height: 13px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/shadow_r.jpg) 0 0 repeat-y;
+}
+
+#Shadow_b
+{
+	height: 13px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/shadow_b.jpg) 0 0 repeat-x;
+}
+
+#Shadow_bl
+{
+	height: 13px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/shadow_b_l.png) 0 0 no-repeat;
+}
+
+#Shadow_br
+{
+	height: 13px;
+	background: #ffffff url(http://download.vidicor.ru/ViewPage/Images/shadow_b_r.jpg) 0 0 no-repeat;
+}

@@ -1,0 +1,85 @@
+﻿<HTML>
+
+<HEAD>
+
+  <TITLE>Пульт управление системой серверов Видикор для проведения телемостов</TITLE>
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <SCRIPT language='JavaScript' src='files/vars.js'></SCRIPT>
+
+<!--  <SCRIPT language='JavaScript' src='-config-.inf'></SCRIPT> -->
+
+  <SCRIPT language='JScript' id='config_file'></SCRIPT>
+<!--
+  В файле -config_name-.inf задайте имя файла конфигурации, 
+  содержащего название страницы, адреса и имена потоков вещания видео и звука 
+-->
+
+  <SCRIPT language='JScript' src='-config_name-.inf'></SCRIPT>
+  <SCRIPT language='JavaScript' src='files/code.js'></SCRIPT>
+
+</HEAD>
+
+<BODY id="body">
+
+<CENTER>
+
+<table width=100% height=100%>
+<tr>
+<td colspan=3 align='center' valign='middle' height=1>
+
+<!-- Название -->
+<H3>
+<SCRIPT language='JavaScript'><!--
+  document.write(Title);
+  document.write(' (<u>' + config_file.src + '</u>)');
+  //-->
+</SCRIPT>
+</H3>
+</td>
+</tr>
+
+<tr>
+
+<td align='center' valign='middle'>
+  <!-- Таблица серверов -->
+    <TABLE align='center' cellspacing=0 cellpadding=3 border=0 id='Table1'><TBODY></TBODY></TABLE>
+
+  <SCRIPT language='JavaScript'><!--
+    Table1.bgColor = tableBgColor;
+    //-->
+  </SCRIPT>
+
+  <SCRIPT language='JavaScript'><!--
+    FillTable(Table1, 0, cnt);
+    //-->
+  </SCRIPT>
+</td>
+
+</tr>
+</table>
+
+<table align=center width=100%>
+<tr>
+<td <td align='center' valign='middle'>
+
+<hr>
+  <!-- Кнопки работы с конфигурацией -->
+    <TABLE border=0 cellpadding=5>
+    <TR>
+      <TD><BUTTON onClick='OpenConfig();'>Открыть конфигурацию</BUTTON></TD>
+      <TD><BUTTON onClick='Reload();'>Применить конфигурацию</BUTTON></TD>
+      <TD><BUTTON onClick='coldRestart();'>Холодный рестарт всего</BUTTON></TD>
+      <TD><BUTTON onClick='hotRestart();'>Горячий рестарт всего</BUTTON></TD>
+    </TR>
+    </TABLE>
+
+</td>
+</tr>
+</table>
+</center>
+
+
+</BODY>
+
+</HTML>

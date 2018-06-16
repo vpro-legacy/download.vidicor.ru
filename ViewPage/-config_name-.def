@@ -1,0 +1,71 @@
+// Имя файла параметров по умолчанию
+
+var base=document.location.search.substr(1);
+if (base != '') 
+{
+//  ExecuteConfig('http://' + base + '/def/-Pre-.def');
+   var el = document.getElementById('pre_config_file');
+   if (el) el.src  = 'http://' + base + '/def/-Pre-.def'; 
+} 
+else 
+{
+//  ExecuteConfig('def/-Pre-.def');
+   var el = document.getElementById('pre_config_file');
+   if (el) el.src  = 'def/-Pre-.def';
+}
+
+function OnLoadPre() 
+{
+  var base=document.location.search.substr(1);
+  if (base != '')
+  {
+//    ExecuteConfig('http://' + base + '/def/-config-.def');
+    var el = document.getElementById('user_config_file');
+    if (el) el.src = 'http://' + base + '/def/-config-.def';
+    chat_folder_base = base;
+  }
+ else
+  {
+//    ExecuteConfig('def/-config-.def');
+    var el = document.getElementById('user_config_file');
+    if (el)  el.src = 'def/-config-.def';
+  }
+}
+
+function doFillDocument() {
+
+   if(document.getElementById('idTitlePlaceholderH1'))
+  {
+    document.getElementById('idTitlePlaceholderH1').innerHTML = Title;
+  }
+
+//  ExecuteConfig('Files/Control.js');
+  document.getElementById('idControlScript').src = 'Files/Control.js';
+
+  if((document.getElementById('idCounterScript') == undefined) || (document.getElementById('idCounterScript') == null)) {
+  }
+ else
+  {
+//     ExecuteConfig('Files/Counter.js');
+     document.getElementById('idCounterScript').src = 'Files/Counter.js';
+  }
+}
+
+var bConfigLoaded = false;
+var bDocumentLoaded = false;
+
+function onLoadConfig()
+  {
+  document.bConfigLoaded = true;
+  if(document.bDocumentLoaded) {
+    doFillDocument();
+  }
+}
+
+function onLoadDocument()
+  {
+  document.bDocumentLoaded = true;
+  if(document.bConfigLoaded) {
+    doFillDocument();
+  }
+}

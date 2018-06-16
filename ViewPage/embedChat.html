@@ -1,0 +1,124 @@
+<html>
+<head>
+ <meta	http-equiv="Content-Type"	content="text/html; charset=windows-1251" />
+</head>
+
+<body style="padding:0">
+<script language=JavaScript type="text/javascript" src='chat/jsloader.js'></script>
+      <TABLE border=5 width='30%' style='display:inline'>
+
+	<TR>
+	  <TD bgcolor='#CFCFCF'>
+	    <TABLE border=0 width='100%'>
+	      <TR>
+		<TD><small>Высказаться публично</small></TD>
+		<TD align=right valign=middle><A href="mailto:info@vidicor.ru" id="idCommentMailAddressA"><small>Отправить комментарий эл. почтой</small></A></TD>
+		<TD align=right valign=middle><a href='chat/admin.php' title='Администрировать'  style="color:CFCFCF"><img src='chat/img/wrench.png' style="height:16;width:16;" border="0" alt='Администрировать'  ></a></TD>
+	      </TR>
+	    </TABLE>
+	  </TD>
+	</TR>
+
+	<TR>
+	  <TD bgcolor='#eFeFeF' class="whitebox_b">
+	    <form action="sendmessage.php" onsubmit="SendSubmit()">
+	      <TABLE border=0 align='center'>
+	        <TR><TD align='right'><small><small>Имя: </small></small></TD>
+		    <TD align='left'><input name='fio' id='fio' size=20></TD></TR>
+	        <TR><TD align='right'><small><small>Город/организация: </small></small></TD>
+		    <TD align='left'><input name='city' id='city' size=40></TD></TR>
+	        <TR><TD align='right'><small><small>Сообщение: </small></small></TD>
+		    <TD align='left'><input name='message' id='message' size=60></TD></TR>
+	        <TR><TD align='right'><small><small>Введите число </small></small><img id='codeimage' src="chat/image.php?1" alt="Кодовое число">: </TD>
+		    <TD align='left'><input name='testcode' id='testcode' size=8>
+				     <input type="button" value="Отправить" onclick="SendSubmit()"></TD></TR>
+	      </TABLE>
+	    </form>
+	  </TD>
+	</TR>
+
+	<TR>
+	  <TD bgcolor="#dFdFdF">
+	    <div name='box' id='box' STYLE="overflow:scroll; height:100px; width:100%; text-align:left">
+	      <center><img src="chat/img/history2.png" alt="Загрузка..."> Загрузка ...</center>
+	    </div>
+	  </TD>
+	</TR>
+
+      </TABLE>
+<script>
+  var timestamp = 0;
+  var modified = 0;
+  var updateInterval = 3000;
+
+
+  function mEval(x)
+  {
+   if (x) eval(x);
+  }
+
+
+  function mSended(tag, param, x)
+  {
+   codeimage = document.getElementById('codeimage');
+   codeimage.src = "chat/image.php?"+Math.random() ;
+   alert(x);
+   
+  }
+
+  function RemoveLoadedTag ( jstag )
+  {
+   setTimeout("Update();", updateInterval);  
+  }
+  
+  function Update()
+  {
+   var url ="chat/getmessage.php?timestamp="+timestamp+'&mod='+modified;
+   LoadJS_Start(url);
+  }
+  
+
+  function addmesssage(mtime, mfio, mcity, message, host)
+  {
+//alert(mtime);
+   var el = document.getElementById('box');
+   el.innerHTML = ("<small><small><font color=red>" + mtime + "</font> | <b><u title=" + host + ">" + unescape(mfio) + ", " + unescape(mcity) + ":</u></b> " + unescape(message) + "</small></small><br>") +el.innerHTML + "&nbsp";
+//   el.scrollIntoView(false);
+  }
+
+
+  function change_timestamp(x, modif)
+  {
+   if (timestamp==0)
+	document.getElementById('box').innerHTML = "";
+   	
+   timestamp = x;
+   modified = modif;
+  }
+
+  
+  function OnLoad()
+  {
+   Update();   
+  }
+  
+
+  function SendSubmit()
+  {
+     mfio = document.getElementById('fio');
+     mmessage = document.getElementById('message');
+     testcode = document.getElementById('testcode');
+     city = document.getElementById('city');
+
+
+    var url = "chat/sendmessage.php?fio="+escape(mfio.value)+"&message="+escape(mmessage.value)+'&code='+testcode.value+'&city='+city.value;
+    LoadText_Start(url, mSended, "text-php");
+     
+    return false;
+  }
+  
+  setInterval("Update();", updateInterval);  
+  
+</script>
+</body>
+</html>
